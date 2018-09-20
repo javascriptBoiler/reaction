@@ -8,6 +8,7 @@ import { Components, registerComponent } from "@reactioncommerce/reaction-compon
  * @memberof Accounts
  * @extends {Component}
  * @property {Object} credentials
+ * @property {Boolean} hasSwitchLinks
  * @property {Boolean} isLoading
  * @property {Function} loginFormMessages
  * @property {Object} messages
@@ -20,6 +21,7 @@ import { Components, registerComponent } from "@reactioncommerce/reaction-compon
 class SignIn extends Component {
   static propTypes = {
     credentials: PropTypes.object,
+    hasSwitchLinks: PropTypes.bool,
     isLoading: PropTypes.bool,
     loginFormMessages: PropTypes.func,
     messages: PropTypes.object,
@@ -28,6 +30,10 @@ class SignIn extends Component {
     onFormSubmit: PropTypes.func,
     onSignUpClick: PropTypes.func,
     uniqueId: PropTypes.string
+  }
+
+  static defaultProps = {
+    hasSwitchLinks: true
   }
 
   constructor(props) {
@@ -167,31 +173,32 @@ class SignIn extends Component {
             {this.renderSpinnerOnWait()}
           </div>
 
-          <div className="form-group flex flex-justify-spaceBetween">
-            <Components.Button
-              tagName="span"
-              className={{
-                "btn": false,
-                "btn-default": false
-              }}
-              label="Reset Password"
-              i18nKeyLabel="accountsUI.forgotPassword"
-              data-event-category="accounts"
-              onClick={this.props.onForgotPasswordClick}
-            />
-            <Components.Button
-              tagName="span"
-              className={{
-                "btn": false,
-                "btn-default": false
-              }}
-              label="Register"
-              i18nKeyLabel="accountsUI.signUp"
-              data-event-category="accounts"
-              onClick={this.props.onSignUpClick}
-            />
-          </div>
-
+          {this.props.hasSwitchLinks &&
+            <div className="form-group flex flex-justify-spaceBetween">
+              <Components.Button
+                tagName="span"
+                className={{
+                  "btn": false,
+                  "btn-default": false
+                }}
+                label="Reset Password"
+                i18nKeyLabel="accountsUI.forgotPassword"
+                data-event-category="accounts"
+                onClick={this.props.onForgotPasswordClick}
+              />
+              <Components.Button
+                tagName="span"
+                className={{
+                  "btn": false,
+                  "btn-default": false
+                }}
+                label="Register"
+                i18nKeyLabel="accountsUI.signUp"
+                data-event-category="accounts"
+                onClick={this.props.onSignUpClick}
+              />
+            </div>
+          }
         </form>
       </div>
     );
