@@ -112,13 +112,16 @@ class OAuthFormContainer extends Component {
   hasPasswordService = () => !!Package["accounts-password"]
 
   renderAuthView() {
-    if (this.props.currentView === "loginFormSignInView") {
+    const currentRouteView = this.props.currentRoute.query.action;
+
+    if (currentRouteView === "signin") {
       return (
         <Components.SignIn
           {...this.props}
           onFormSubmit={this.handleFormSubmit}
           messages={this.state.formMessages}
           onError={this.hasError}
+          hasSwitchLinks={false}
           loginFormMessages={this.formMessages}
           isLoading={this.state.isLoading}
         />
@@ -130,6 +133,7 @@ class OAuthFormContainer extends Component {
         onFormSubmit={this.handleFormSubmit}
         messages={this.state.formMessages}
         onError={this.hasError}
+        hasSwitchLinks={false}
         loginFormMessages={this.formMessages}
         hasPasswordService={this.hasPasswordService}
         isLoading={this.state.isLoading}
